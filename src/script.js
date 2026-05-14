@@ -6,6 +6,8 @@ const incomeList = document.getElementById("incomeList");
 const expenseList = document.getElementById("expenseList");
 const balanceEl = document.getElementById("balance");
 
+balanceEl.textContent = "0";
+
 function updateBalance(change) {
 	const current = Number(balanceEl.textContent) || 0;
 	balanceEl.textContent = String(current + change);
