@@ -6,34 +6,24 @@ const incomeList = document.getElementById("incomeList");
 const expenseList = document.getElementById("expenseList");
 const balanceEl = document.getElementById("balance");
 
-function getAmount(value) {
-	const amount = Number(value);
-	return Number.isFinite(amount) ? amount : null;
-}
-
-function isValidInput(desc, amountRaw) {
-	if (!desc.trim() || !amountRaw.trim()) return false;
-	return getAmount(amountRaw) !== null;
-}
-
 function updateBalance(change) {
 	const current = Number(balanceEl.textContent) || 0;
 	balanceEl.textContent = String(current + change);
 }
 
 function addTransaction(type) {
-	const desc = descInput.value;
-	const amountRaw = amountInput.value;
+	const desc = descInput.value.trim();
+	const amountText = amountInput.value.trim();
+	const amount = Number(amountText);
 
-	if (!isValidInput(desc, amountRaw)) return;
+	if (!desc || !amountText || !Number.isFinite(amount)) return;
 
-	const amount = getAmount(amountRaw);
 	const list = type === "income" ? incomeList : expenseList;
 	const label = type === "income" ? "Inkomst" : "Utgift";
 	const change = type === "income" ? amount : -amount;
 
 	const item = document.createElement("li");
-	item.textContent = `${desc} - ${amountRaw} kr (${label})`;
+	item.textContent = `${desc} - ${amountText} kr (${label})`;
 	list.appendChild(item);
 
 	updateBalance(change);
